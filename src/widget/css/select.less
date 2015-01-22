@@ -1,0 +1,89 @@
+
+@w-select: kselect;
+
+// 必须样式
+// 最好不要覆盖，如果覆盖，需要保证控件正常运行
+.@{w-select} {
+    .inline-block();
+    position: relative;
+    z-index: @w-z-index;
+
+    .@{w-select}-label {
+        .inline-block();
+    }
+
+    span {
+
+    }
+
+    i {
+        
+        
+        &.expanded {
+
+        }
+    }
+
+    ul {
+        display: none;
+
+        li {
+
+        }
+    }
+}
+ 
+// 默认样式
+// 提供一套样式的函数， 默认加载
+// 可以自定义该函数
+.w-select() {
+
+    .@{w-select} {
+
+        .@{w-select}-label {
+            cursor: pointer;
+            border: 1px solid @w-border-color;
+            padding: 0 5px;
+            padding-right: 15px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        span {
+            
+        }
+
+        i {
+            .triangle-noborder();
+            position: absolute;
+            top: 9px;
+            right: 4px;
+            .transition(all .5s ease);
+
+            &.expanded {
+                .rotate(180deg);
+                .transform-origin(center 3px);
+            }
+        }
+
+        ul {
+            font-size: 13px;
+            background: #fff;
+            border: 1px solid @w-border-color;
+
+            li {
+                cursor: pointer;
+                text-align: center;
+                padding: 0 3px;
+                margin: 2px 0;
+                &:hover {
+                    background: #ddd;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+
+
+

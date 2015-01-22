@@ -1,0 +1,46 @@
+
+@w-autocomplete: kautocomplete;
+
+// 必须样式
+// 最好不要覆盖，如果覆盖，需要保证控件正常运行
+.@{w-autocomplete}-menu {
+    position: absolute;
+    display: none;
+    z-index: @w-z-index;
+
+    // 列表项
+    li {
+
+        &.@{w-autocomplete}-item-sel {
+            
+        }
+    }
+}
+
+// 默认样式
+// 提供一套样式的函数， 默认加载
+// 可以自定义该函数
+.w-autocomplete() {
+    .@{w-autocomplete}-menu {
+        position: absolute;
+        top: 52px;
+        left: 0;
+        display: none;
+        background: #fff;
+        z-index: 10001;
+        border: 1px solid #ddd;
+        boder-top: none;
+
+        // 列表项
+        li {
+            padding: 5px;
+
+            &.@{w-autocomplete}-item-sel {
+                background: #ddd;
+                color: #fff;
+            }
+        }
+    }
+}
+
+

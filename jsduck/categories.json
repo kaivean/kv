@@ -1,0 +1,37 @@
+[
+    {
+        "name": "KV",
+        "groups": [
+            {
+                "name": "基础库",
+                "classes": [
+                    "is",
+                    "util",
+                    "fn",
+                    "json",
+                    "helper",
+                    "url",
+                    "Observer",
+                    "deferred"
+                ]
+            },
+            {
+                "name": "UI框架",
+                "classes": [
+                    "AutoComplete",
+                    "Backtop",
+                    "Checkbox",
+                    "Control",
+                    "effect",
+                    "lib",
+                    "Popup",
+                    "Select",
+                    "Slider",
+                    "Tab",
+                    "Waterfall",
+                    "Xiding"
+                ]
+            }
+        ]
+    }
+]

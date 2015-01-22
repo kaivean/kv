@@ -1,0 +1,18 @@
+@w-xiding: kxiding;
+
+// 必须样式
+// 最好不要覆盖，如果覆盖，需要保证控件正常运行
+.@{w-xiding} {
+    position: absolute;
+    visibility: hidden;
+}
+
+
+// 默认样式
+// 提供一套样式的函数， 默认加载
+// 可以自定义该函数
+.w-xiding() {
+    .@{w-xiding} {
+        
+    }
+}

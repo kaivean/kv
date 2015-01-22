@@ -1,0 +1,81 @@
+
+@w-tab: ktab;
+
+// 必须样式
+// 最好不要覆盖，如果覆盖，需要保证控件正常运行
+.@{w-tab} {
+
+    .@{w-tab}-nav {
+        .clearfix();
+        
+        li {
+            
+        }
+        
+        // 被选项
+        li.@{w-tab}-nav-sel {
+
+        }
+
+        // 被选项前一个项
+        li.@{w-tab}-nav-prev {
+            
+        }
+
+        // 被选项后一个项
+        li.@{w-tab}-nav-next {
+            
+        }
+
+        // 最后一个项
+        li.@{w-tab}-nav-last {
+            
+        }
+    }
+
+    .@{w-tab}-item {
+        display: none;
+    }
+}
+
+// 默认样式
+// 提供一套样式的函数， 默认加载
+// 可以自定义该函数
+.w-tab() {
+
+    .@{w-tab} {
+
+        .@{w-tab}-nav {
+            .clearfix();
+
+            li {
+                .float-left();
+                cursor: pointer;
+            }
+            
+            // 被选项
+            li.@{w-tab}-nav-sel {
+
+            }
+
+            // 被选项前一个项
+            li.@{w-tab}-nav-prev {
+                
+            }
+
+            // 被选项后一个项
+            li.@{w-tab}-nav-next {
+                
+            }
+
+            // 最后一个项
+            li.@{w-tab}-nav-last {
+                
+            }
+        }
+
+        .@{w-tab}-item {
+            
+        }
+    }
+}

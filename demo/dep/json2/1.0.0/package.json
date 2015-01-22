@@ -1,0 +1,11 @@
+{
+    "name": "json2",
+    "version": "1.0.0",
+    "contributors": [
+        { "name": "leeight", "email": "leeight@gmail.com" }
+    ],
+    "main": "json2",
+    "description": "You know that",
+    "homepage": "https://github.com/douglascrockford/JSON-js",
+    "repository": "https://github.com/douglascrockford/JSON-js"
+}

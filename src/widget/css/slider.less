@@ -1,0 +1,54 @@
+
+@w-slider: kslider;
+
+// 必须样式
+// 最好不要覆盖，如果覆盖，需要保证控件正常运行
+.@{w-slider} {
+    position: relative;
+    overflow-x: hidden;
+    width: 100%; 
+    .@{w-slider}-cont {
+        position: relative;
+        .clearfix();
+        width: 2000%;
+    }
+
+    .@{w-slider}-item {
+        float: left;
+    }
+
+    .@{w-slider}-prev {
+        
+    }
+
+    .@{w-slider}-next {
+        
+    }
+}
+
+// 默认样式
+// 提供一套样式的函数， 默认加载
+// 可以自定义该函数
+.w-slider() {
+    .@{w-slider} {
+        
+        .@{w-slider}-cont {
+            
+        }
+
+        .@{w-slider}-item {
+            
+        }
+
+        .@{w-slider}-prev {
+            
+        }
+
+        .@{w-slider}-next {
+            
+        }
+    }
+}
+
+
+

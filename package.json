@@ -1,0 +1,21 @@
+{
+    "name": "kv",
+    "version": "1.0.0",
+    "main": "lib",
+    "description": "You know it",
+    "homepage": "",
+    "repository": "",
+    "contributors": [
+        {
+            "name": "kaivean",
+            "email": "kaisey2012@163.com"
+        }
+    ],
+    "devDependencies": {
+
+    },
+    "dependencies": {
+        "json2": "1.0.0",
+        "jquery": "1.9.1"
+    }
+}

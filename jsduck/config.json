@@ -1,0 +1,28 @@
+{
+    "--title": "KV",
+    "--output": "../doc/api",
+    "--categories": "categories.json",
+    "--": [
+        "../src/lib/is.js",
+        "../src/lib/util.js",
+        "../src/lib/fn.js",
+        "../src/lib/json.js",
+        "../src/lib/helper.js",
+        "../src/lib/url.js",
+        "../src/lib/Observer.js",
+        "../src/lib/deferred.js",
+
+        "../src/widget/AutoComplete.js",
+        "../src/widget/Backtop.js",
+        "../src/widget/Checkbox.js",
+        "../src/widget/Control.js",
+        "../src/widget/effect.js",
+        "../src/widget/lib.js",
+        "../src/widget/Popup.js",
+        "../src/widget/Select.js",
+        "../src/widget/Slider.js",
+        "../src/widget/Tab.js",
+        "../src/widget/Waterfall.js",
+        "../src/widget/Xiding.js"
+    ]
+}
