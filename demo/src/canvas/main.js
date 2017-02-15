@@ -1,6 +1,6 @@
 /**
  * @file 中间页入口文件
- * @author wukaifang(wukaifang@baidu.com)
+ * @author kaivean(kaivean@outlook.com)
  */
 
 define(function (require, exports) {

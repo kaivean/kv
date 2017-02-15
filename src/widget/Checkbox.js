@@ -4,6 +4,7 @@
  */
 
 define(function (require) {
+
     var Control = require('./Control');
 
     function listen() {

@@ -92,7 +92,8 @@ define(function (require) {
 
             if (this.items.length > index && this.index !== index) {
                 var item = this.items.eq(index);
-                this.labelCont.text(item.data('value'));
+                this.labelCont.text(item.text());
+                this.labelCont.data('value', item.data('value'));
                 this.index = index;
                 !silent && this.fire('change', {index: index});
             }
@@ -104,7 +105,7 @@ define(function (require) {
          * @return {boolean} 是否选中
          */
         getValue: function () {
-            return this.labelCont.text();
+            return this.labelCont.data('value');
         },
 
         /**

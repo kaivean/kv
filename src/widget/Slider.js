@@ -4,6 +4,7 @@
  */
 
 define(function (require) {
+
     var lib = require('./lib');
     var $ = require('./lib').dom;
     var Control = require('./Control');
@@ -12,12 +13,12 @@ define(function (require) {
         this.prevBtn.length && this.on(
             this.prevBtn,
             'click',
-            lib.throttle(250, true, this.prev)
+            lib.throttle(250, true, onClickPrev)
         );
         this.nextBtn.length && this.on(
             this.nextBtn,
             'click',
-            lib.throttle(250, true, this.next)
+            lib.throttle(250, true, onClickNext)
         );
 
         if (this.option.autoProgress && this.option.stopOnFocus) {
@@ -25,12 +26,30 @@ define(function (require) {
                 .on(this.main, 'mouseenter', this.stopAutoProgress)
                 .on(this.main, 'mousemove', this.stopAutoProgress)
                 .on(this.main, 'mouseover', this.stopAutoProgress)
-                .on(this.main, 'mouseleave', this.startAutoProgress);
+                .on(this.main, 'mouseleave', this.restartAutoProgress);
         }
 
         if (this.option.keyNavigation) {
             this.on($(document), 'keyup', onkeyup);
         }
+    }
+
+    function onClickPrev() {
+        this.stopAutoProgress();
+        this.prev(function () {
+            if (this.option.autoProgress) {
+                this.startAutoProgress();
+            }
+        });
+    }
+
+    function onClickNext() {
+        this.stopAutoProgress();
+        this.next(function () {
+            if (this.option.autoProgress) {
+                this.startAutoProgress();
+            }
+        });
     }
 
     function onkeyup(e) {
@@ -58,15 +77,19 @@ define(function (require) {
 
     function onAnimateDone() {
         this.cont.clearQueue();
-        this.fire('change', this.index);
+        this.fire('change', this.oriItems.index(this.getItems().eq(this.index)));
     }
 
-    function doAnimate(left) {
+    function doAnimate(left, callback) {
+        var me = this;
         this.cont.stop(false).animate(
             {left: -left},
             this.option.slideTime,
             'swing',
-            lib.bind(onAnimateDone, this)
+            function () {
+                callback && callback.call(me);
+                onAnimateDone.call(me);
+            }
         );
     }
 
@@ -96,6 +119,7 @@ define(function (require) {
          * @property {boolean} defaultOption.progressInterval 自动切换时间间隔
          * @property {boolean} defaultOption.slideInterval 切换时长
          * @property {boolean} defaultOption.stopOnFocus 当鼠标在tab元素内，禁止自动切换
+         * @property {string} option.transition 切换效果
          * @property {Function} defaultOption.effectFunc  自定义切换动画
          * @readonly
          * @override
@@ -107,6 +131,7 @@ define(function (require) {
             progressInterval: 2000,
             slideTime: 600,
             stopOnFocus: true,
+            transition: 'infinite',
             effectFunc: null
         },
 
@@ -116,10 +141,12 @@ define(function (require) {
          * @protected
          */
         init: function () {
+            this.contWrap = this.main.find(this.cn('cont-wrap', 1));
             this.cont = this.main.find(this.cn('cont', 1));
             this.prevBtn = this.main.find(this.cn('prev', 1));
             this.nextBtn = this.main.find(this.cn('next', 1));
-            this.items = this.getItems();
+            this.oriItems = this.items = this.getItems();
+
             this.step = 1;
 
             var itemSel = this.items.filter(this.cn('item-sel', 1));
@@ -134,7 +161,7 @@ define(function (require) {
             });
 
             this.items.css({
-                width: 100 / this.items.length + '%'
+                width: this.main.width()
             });
 
             this.p(listen);
@@ -144,11 +171,11 @@ define(function (require) {
             }
         },
 
-        getItems: function() {
+        getItems: function () {
             return this.cont.children();
         },
 
-        move: function (noEffect) {
+        move: function (noEffect, callback) {
 
             if (noEffect) {
                 this.cont.css('left', -this.p(getPosLeft));
@@ -160,42 +187,52 @@ define(function (require) {
             else {
                 this.p(
                     doAnimate,
-                    this.p(getPosLeft)
+                    this.p(getPosLeft),
+                    callback
                 );
             }
             this.getItems().removeClass(this.cn('item-sel')).eq(this.index).addClass(this.cn('item-sel'));
         },
 
-        next: function () {
-            // console.log(this.index, this.getItems().length);
+        next: function (callback) {
             if (this.index >= this.getItems().length - 1) {
-                var left = this.p(getPosLeft, this.index - this.step);
-                this.getItems()
-                    .first()
-                    .appendTo(this.cont);
+                switch (this.option.transition) {
+                    case 'infinite':
+                        this.getItems()
+                            .first()
+                            .appendTo(this.cont);
 
-                this.cont.css('left', -left);
+                        this.cont.css('left', -this.p(getPosLeft, this.index - this.step));
+                        break;
+                    case 'repeat':
+                        this.index = 0;
+                }
             }
             else {
                 this.index += this.step;
             }
-            this.move();
-            return false;
+            this.move(false, callback);
+            return this;
         },
-        prev: function (e) {
+        prev: function (callback) {
 
             if (this.index <= 0) {
-                var left = this.p(getPosLeft, this.index + this.step);
-                this.getItems()
-                    .last()
-                    .prependTo(this.cont);
-                this.cont.css('left', -left);
+                switch (this.option.transition) {
+                    case 'infinite':
+                        this.getItems()
+                            .last()
+                            .prependTo(this.cont);
+                        this.cont.css('left', -this.p(getPosLeft, this.index + this.step));
+                        break;
+                    case 'repeat':
+                        this.index = this.getItems().length - 1;
+                }
             }
             else {
                 this.index -= this.step;
             }
-            this.move();
-            return false;
+            this.move(false, callback);
+            return this;
         },
 
         startAutoProgress: function () {

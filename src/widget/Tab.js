@@ -4,10 +4,10 @@
  */
 
 define(function (require) {
+
     var lib = require('./lib');
     var $ = lib.dom;
     var Control = require('./Control');
-
 
     function listen() {
         // 为图片轮播等需要渐隐等持续效果的场合 做优化
@@ -21,7 +21,7 @@ define(function (require) {
         if (this.option.autoProgress && this.option.stopOnFocus) {
             this
                 .on(this.main, 'mouseenter', this.stopAutoProgress)
-                .on(this.main, 'mouseleave', this.startAutoProgress);
+                .on(this.main, 'mouseleave', this.restartAutoProgress);
         }
 
         if (this.option.keyNavigation) {
@@ -62,7 +62,8 @@ define(function (require) {
             if (this.option.autoProgress) {
                 this.restartAutoProgress();
             }
-        } else if (e.which === 37) { // Left Arrow
+        }
+        else if (e.which === 37) { // Left Arrow
             this.prev();
             if (this.option.autoProgress) {
                 this.restartAutoProgress();
@@ -199,7 +200,7 @@ define(function (require) {
         /**
          * 切换至下一个项
          */
-        next: function() {
+        next: function () {
             var nextTabIdx = this.curTabIdx + 1;
             if (this.navItems.length <= nextTabIdx) {
                 nextTabIdx = 0;
@@ -210,7 +211,7 @@ define(function (require) {
         /**
          * 切换至前一个项
          */
-        prev: function() {
+        prev: function () {
             var nextTabIdx = this.curTabIdx - 1;
             if (0 > nextTabIdx) {
                 nextTabIdx = this.navItems.length - 1;

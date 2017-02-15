@@ -49,13 +49,6 @@ define(function (require) {
         defaultOption: null,
 
         /**
-         * 保存事件数据的数组
-         * @type {array}
-         * @protected
-         */
-        _listners: null,
-
-        /**
          * 控件初始化
          *
          * @param {Object} option 配置参数
@@ -69,7 +62,11 @@ define(function (require) {
             // 假如子类定义了defaultOption，就用子类的
             this.defaultOption = this.defaultOption || {};
 
-            // 初始化事件数组为空
+            /**
+             * 保存事件数据的数组
+             * @type {array}
+             * @protected
+             */
             this._listners = [];
 
             option = option || {};

@@ -1,6 +1,6 @@
 /**
  * @file  Ellipse
- * @author wukaifang(wukaifang@baidu.com)
+ * @author kaivean(kaivean@outlook.com)
  */
 
 define(function (require) {

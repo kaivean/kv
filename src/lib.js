@@ -1,6 +1,6 @@
 /**
  * @file  通用函数库
- * @author wukaifang(wukaifang@baidu.com)
+ * @author kaivean(kaivean@outlook.com)
  */
 
 define(function (require) {

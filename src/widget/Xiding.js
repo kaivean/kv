@@ -4,6 +4,7 @@
  */
 
 define(function (require) {
+
     var lib = require('./lib');
     var $ = lib.dom;
     var Control = require('./Control');
@@ -14,6 +15,31 @@ define(function (require) {
         this.on($window, 'scroll', onsrcoll);
     }
 
+    function setFixed(ele, top, left) {
+        if (lib.is.ie6()) {
+            ele.css({
+                'position': 'absolute',
+                'top': $window.scrollTop() + top,
+                'left': left
+            });
+        }
+        else {
+            ele.css({
+                'position': 'fixed',
+                'top': top,
+                'left': left
+            });
+        }
+    }
+
+    function setAbsolute(ele, top, left) {
+        ele.css({
+            'position': 'absolute',
+            'top': top,
+            'left': left
+        });
+    }
+
     function onsrcoll(e) {
 
         var scrollTop = $window.scrollTop();
@@ -22,6 +48,24 @@ define(function (require) {
         var winTop;
         var alignTop;
         var isFixed = false;
+
+        // 如果没有
+        if (!this.elem) {
+            if (scrollTop > this.mainOffet.top) {
+                if (!this.isFixed) {
+                    setFixed(this.main, 0, this.mainOffet.left);
+                    (this.isFixed = true);
+                }
+            }
+            else {
+                if (this.isFixed) {
+                    this.main.css('position', '');
+                    this.isFixed = false;
+                }
+            }
+            return;
+        }
+
         if (this.option.vDirection === 'top') {
             winTop = scrollTop;
             alignTop = this.elem.offset().top;
@@ -49,27 +93,11 @@ define(function (require) {
             else if (this.option.vDirection === 'bottom') {
                 t = $window.height() - this.main.outerHeight() - this.option.vOffset;
             }
-            if (lib.is.ie6()) {
-                this.main.css({
-                    'position': 'absolute',
-                    'top': scrollTop + t,
-                    'left': alignLeft
-                });
-            }
-            else {
-                this.main.css({
-                    'position': 'fixed',
-                    'top': t,
-                    'left': alignLeft
-                });
-            }
+
+            setFixed(this.main, t, alignLeft);
         }
         else {
-            this.main.css({
-                'position': 'absolute',
-                'top': alignTop,
-                'left': alignLeft
-            });
+            setAbsolute(this.main, alignTop, alignLeft);
         }
     }
 
@@ -120,7 +148,13 @@ define(function (require) {
          */
         init: function () {
 
-            this.elem = $(this.option.alignElement);
+            if (this.option.alignElement) {
+                this.elem = $(this.option.alignElement);
+            }
+            else {
+                this.mainOffet = this.main.offset();
+            }
+
             $window = $(window);
 
             this.p(listen);

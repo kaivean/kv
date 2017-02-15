@@ -422,7 +422,7 @@ define(function (require) {
          *
          * @return {Object} this
          */
-        hide: function() {
+        hide: function () {
             this.menu.hide();
             this.shown = false;
             return this;
@@ -444,7 +444,7 @@ define(function (require) {
          * @param {Object} data 待处理数据
          * @return {Object} this
          */
-        process: function(data) {
+        process: function (data) {
             data = this.option.handleSourceData(data, this.query);
             return lib.is.array(data)
                         ? this.render(data.slice(0, this.option.itemNum)) : this;
@@ -463,7 +463,7 @@ define(function (require) {
                 return this.shown ? this.hide() : this;
             }
 
-            items = $(items).map(function(key, item) {
+            items = $(items).map(function (key, item) {
                 var $item;
                 var itemContent;
                 $item = $(me.itemTag);

@@ -5,8 +5,15 @@
 // 最好不要覆盖，如果覆盖，需要保证控件正常运行
 .@{w-slider} {
     position: relative;
-    overflow-x: hidden;
     width: 100%; 
+
+    .@{w-slider}-cont-wrap {
+        .clearfix();
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+
     .@{w-slider}-cont {
         position: relative;
         .clearfix();
@@ -31,6 +38,8 @@
 // 可以自定义该函数
 .w-slider() {
     .@{w-slider} {
+        .@{w-slider}-cont-wrap {
+        }
         
         .@{w-slider}-cont {
             
